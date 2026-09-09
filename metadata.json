@@ -1,6 +1,6 @@
 {
   "name": "Impacto Landing",
-  "description": "High-impact, conversion-focused landing page for modern business solutions, featuring interactive product demos, ROI calculator, and lead generation.",
+  "description": "Modern SaaS platform and public portal directory for Rwandan cooperatives, NGOs, and community associations with Mobile Money ledgers and impact tracking.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
