@@ -1,0 +1,6 @@
+{
+  "name": "Impacto Landing",
+  "description": "High-impact, conversion-focused landing page for modern business solutions, featuring interactive product demos, ROI calculator, and lead generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
