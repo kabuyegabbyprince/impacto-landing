@@ -1,16 +1,15 @@
+import { APP_CONFIG } from '../config';
+
 /**
  * External and internal links configuration for Impacto Portal.
- * Update sign-in, sign-up, and registration links here.
+ * Sourced directly from centralized APP_CONFIG.
  */
-
 export const PORTAL_LINKS = {
-  SIGN_IN: 'https://impacto-portal.vercel.app/',
-  SIGN_UP: 'https://impacto-portal.vercel.app/signup',
-  DASHBOARD: 'https://impacto-portal.vercel.app/',
-  REGISTER_ORG: (orgId?: string) =>
-    orgId
-      ? `https://impacto-portal.vercel.app/signup?org_id=${encodeURIComponent(orgId)}`
-      : 'https://impacto-portal.vercel.app/signup',
-  CONTACT_SUPPORT_EMAIL: 'support@impact-o.app',
-  DOMAIN_PREFIX: 'impact-o.app',
+  SIGN_IN: APP_CONFIG.PORTAL.SIGN_IN_URL,
+  SIGN_UP: APP_CONFIG.PORTAL.SIGN_UP_URL,
+  DASHBOARD: APP_CONFIG.PORTAL.DASHBOARD_URL,
+  REGISTER_ORG: APP_CONFIG.PORTAL.GET_REGISTER_ORG_URL,
+  CONTACT_SUPPORT_EMAIL: APP_CONFIG.SUPPORT.EMAIL,
+  DOMAIN_PREFIX: APP_CONFIG.APP_DOMAIN,
 };
+

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { APP_CONFIG } from '../config';
 
-const USD_TO_RWF_RATE = 1420;
+const USD_TO_RWF_RATE = APP_CONFIG.CURRENCY.USD_TO_RWF_RATE;
 
 export const useCurrencyStore = () => {
+
   const [activeCurrency, setActiveCurrency] = useState<'RWF' | 'USD'>('RWF');
 
   const convertToRWF = (amount: number, fromCurrency: 'USD' | 'RWF' = 'USD') => {

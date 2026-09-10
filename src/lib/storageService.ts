@@ -1,14 +1,14 @@
 import { supabase } from './supabase';
+import { APP_CONFIG } from '../config';
 
-const SUPABASE_URL =
-  (import.meta as any).env?.VITE_SUPABASE_URL || 'https://wwhjtdndcbmzcwkocjph.supabase.co';
+const SUPABASE_URL = APP_CONFIG.SUPABASE.URL;
 
 /**
  * Normalizes and synchronously resolves a storage path, relative URL, or full URL to an accessible image URL.
  */
 export function getStoragePublicUrl(
   pathOrUrl: string | undefined | null,
-  defaultBucket = 'avatars'
+  defaultBucket = APP_CONFIG.SUPABASE.DEFAULT_BUCKET
 ): string {
   if (!pathOrUrl || typeof pathOrUrl !== 'string') return '';
   const trimmed = pathOrUrl.trim();
