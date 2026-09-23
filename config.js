@@ -23,7 +23,7 @@ export const CONFIG = {
   PORTAL: {
     BASE_URL: 'https://impacto-portal.vercel.app',
     SIGN_IN_URL: 'https://impacto-portal.vercel.app/',
-    SIGN_UP_URL: 'https://impacto-portal.vercel.app/signup',
+    SIGN_UP_URL: 'https://impacto-portal.vercel.app/',
     DASHBOARD_URL: 'https://impacto-portal.vercel.app/',
   },
 

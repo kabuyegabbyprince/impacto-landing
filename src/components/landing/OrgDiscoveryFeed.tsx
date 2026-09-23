@@ -1,247 +1,104 @@
-import React, { useState, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Search, Eye } from 'lucide-react';
-import { useOrganizations } from '../../hooks/useImpactoData';
-import { Input, Card, Badge, Button, EmptyState } from '../ui';
-import { ResolvedImage } from '../ResolvedMedia';
-import { PORTAL_LINKS } from '../../constants/links';
+import React from 'react';
+import { Download, Smartphone, CheckCircle2, Clock } from 'lucide-react';
+import { Card } from '../ui';
 
 export const OrgDiscoveryFeed: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
-  const { data: orgs, isLoading } = useOrganizations();
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const isRw = i18n.language?.startsWith('rw');
-  const isFr = i18n.language?.startsWith('fr');
-
-  const categories = ['All', 'Environment', 'Education', 'Health', 'Social Action', 'Enterprise'];
-
-  const getCategoryLabel = (cat: string) => {
-    if (isRw) {
-      switch (cat) {
-        case 'All':
-          return 'Byose';
-        case 'Environment':
-          return 'Ibidukikije';
-        case 'Education':
-          return 'Uburezi';
-        case 'Health':
-          return 'Ubuzima';
-        case 'Social Action':
-          return 'Imibereho Myiza';
-        case 'Enterprise':
-          return 'Koperative n\'Ubucuruzi';
-        default:
-          return cat;
-      }
-    }
-    if (isFr) {
-      switch (cat) {
-        case 'All':
-          return 'Tout';
-        case 'Environment':
-          return 'Environnement';
-        case 'Education':
-          return 'Éducation';
-        case 'Health':
-          return 'Santé';
-        case 'Social Action':
-          return 'Action Sociale';
-        case 'Enterprise':
-          return 'Entreprise';
-        default:
-          return cat;
-      }
-    }
-    return cat;
-  };
-
-  const filteredOrgs = useMemo(() => {
-    if (!orgs) return [];
-    const validOrgs = orgs.filter((o) => {
-      const isPublic = o.is_public_directory !== false && o.allow_public_joining !== false;
-      const matchesSearch =
-        !searchQuery ||
-        o.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (o.tagline && o.tagline.toLowerCase().includes(searchQuery.toLowerCase()));
-      const matchesCategory = selectedCategory === 'All' || o.org_category === selectedCategory;
-      return isPublic && matchesSearch && matchesCategory;
-    });
-
-    if (validOrgs.length <= 6) return validOrgs;
-
-    // Pick 6 randomly from available public organizations
-    const shuffled = [...validOrgs].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 6);
-  }, [orgs, searchQuery, selectedCategory]);
-
   return (
     <section
       id="discovery"
-      className="py-16 bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 px-6"
+      className="py-20 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 border-t border-gray-200 dark:border-slate-800 px-6"
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8.5">
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold font-display text-gray-900 dark:text-white">
-              {t('landing.featured')}
-            </h2>
-            <p className="text-xs text-gray-500 mt-0.5">{t('landing.directory_desc')}</p>
-          </div>
-
-          {/* Quick Search Input */}
-          <div className="w-full md:w-80 select-none">
-            <Input
-              type="text"
-              placeholder={t('landing.search_placeholder')}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              prefixIcon={<Search className="h-4 w-4 text-gray-400" />}
-            />
-          </div>
+      <div className="max-w-4xl mx-auto text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold mb-4 border border-emerald-200 dark:border-emerald-800">
+          <Smartphone className="h-4 w-4" />
+          <span>Official Mobile App Release</span>
         </div>
 
-        {/* Category Pills */}
-        <div className="flex gap-2.5 overflow-x-auto pb-4 mb-6">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 text-xs font-semibold rounded-full shrink-0 border cursor-pointer transition ${
-                selectedCategory === cat
-                  ? 'bg-[#15803D] border-[#15803D] text-white shadow-xs'
-                  : 'bg-gray-50 dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-100'
-              }`}
-            >
-              {getCategoryLabel(cat)}
-            </button>
-          ))}
-        </div>
+        <h2 className="text-3xl md:text-4xl font-black font-display text-gray-900 dark:text-white tracking-tight">
+          Download Impacto for Android
+        </h2>
+        <p className="text-sm md:text-base text-gray-600 dark:text-slate-400 mt-3 max-w-xl mx-auto leading-relaxed">
+          Access your cooperative workspace, record MoMo donations, verify credentials, and manage community projects directly from your Android device.
+        </p>
 
-        {/* Org Grid */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 3 }).map((_, idx) => (
-              <div
-                key={idx}
-                className="h-64 bg-gray-50 dark:bg-slate-800 border rounded-2xl animate-pulse"
-              />
-            ))}
-          </div>
-        ) : filteredOrgs.length === 0 ? (
-          <EmptyState
-            title={
-              isRw
-                ? 'Nta Muyoboro Uhuye'
-                : isFr
-                ? 'Aucune Organisation trouvée'
-                : 'No Organizations Matched'
-            }
-            message={
-              isRw
-                ? 'Gerageza guhindura amagambo ushakisha cyangwa uhitemo ibindi bice.'
-                : isFr
-                ? 'Essayez de modifier vos mots-clés ou sélectionnez d\'autres catégories.'
-                : 'Try customizing your keywords or select another categories.'
-            }
-            action={
-              <a href={PORTAL_LINKS.SIGN_UP}>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                  Register New Organization
-                </Button>
-              </a>
-            }
-          />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredOrgs.map((org) => (
-              <Card
-                key={org.id}
-                padding={false}
-                className="flex flex-col h-full group hover:border-[var(--org-primary)] transition cursor-pointer"
-                onClick={() => navigate(`/@${org.slug}`)}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+          {/* Android Download Card */}
+          <Card className="p-8 border-2 border-emerald-500/40 bg-white dark:bg-slate-900 shadow-xl rounded-3xl flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
+            <div>
+              <div className="h-12 w-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold mb-4 shadow-lg">
+                <Download className="h-6 w-6" />
+              </div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold">
+                Android APK v1.0
+              </span>
+              <h3 className="text-xl font-black font-display text-gray-900 dark:text-white mt-1">
+                Impacto Android App
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-slate-400 mt-2 leading-relaxed">
+                Direct installation package optimized for all Android smartphones and tablets (Android 8.0+).
+              </p>
+              
+              <ul className="mt-5 space-y-2.5 text-xs text-gray-700 dark:text-slate-300 font-medium">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>Offline sync & fast mobile access</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>Push notifications for meetings & goals</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-gray-100 dark:border-slate-800">
+              <a
+                href="/impacto.apk"
+                download="impacto.apk"
+                className="w-full flex items-center justify-center gap-2.5 py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-2xl shadow-md transition transform hover:-translate-y-0.5 cursor-pointer text-center"
               >
-                <div className="relative h-32 w-full bg-slate-100 overflow-hidden">
-                  {org.cover_url &&
-                  !(org.cover_url.startsWith('from-') || !org.cover_url.includes('/')) ? (
-                    <ResolvedImage
-                      src={org.cover_url}
-                      alt={org.name}
-                      className="h-full w-full object-cover group-hover:scale-105 transition duration-200"
-                      bucketName="covers"
-                    />
-                  ) : org.cover_url ? (
-                    <div
-                      className={`h-full w-full bg-gradient-to-tr ${org.cover_url} group-hover:scale-105 transition duration-200`}
-                    />
-                  ) : (
-                    <div
-                      className={`h-full w-full bg-gradient-to-tr ${
-                        org.org_category?.toLowerCase() === 'environment'
-                          ? 'from-emerald-500 to-green-600'
-                          : org.org_category?.toLowerCase() === 'education'
-                          ? 'from-indigo-500 to-purple-600'
-                          : org.org_category?.toLowerCase() === 'health'
-                          ? 'from-cyan-500 to-sky-600'
-                          : org.org_category?.toLowerCase() === 'social action' ||
-                            org.org_category?.toLowerCase() === 'social_action'
-                          ? 'from-rose-500 to-pink-600'
-                          : org.org_category?.toLowerCase() === 'enterprise'
-                          ? 'from-amber-500 to-orange-600'
-                          : 'from-slate-500 to-zinc-600'
-                      } opacity-80`}
-                    />
-                  )}
-                  <Badge color="green" className="absolute top-3 left-3 shadow-xs">
-                    {getCategoryLabel(org.org_category)}
-                  </Badge>
+                <Download className="h-4 w-4" />
+                <span>Download impacto.apk</span>
+              </a>
+              <span className="text-[10px] text-gray-400 text-center block mt-2 font-mono">
+                Verified secure installation file (~18.4 MB)
+              </span>
+            </div>
+          </Card>
 
-                  {/* Org Logo Avatar floating over cover */}
-                  {(org.logo_url || org.dashboard_logo) && (
-                    <div className="absolute bottom-2 right-3 h-9 w-9 rounded-xl bg-white p-0.5 shadow-md overflow-hidden border border-white/80">
-                      <ResolvedImage
-                        src={org.logo_url || org.dashboard_logo}
-                        alt={org.name}
-                        className="h-full w-full object-contain rounded-lg"
-                        bucketName="avatars"
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="p-5 flex flex-col flex-grow justify-between gap-4">
-                  <div className="flex flex-col">
-                    <span className="font-display font-bold text-base text-gray-900 dark:text-white group-hover:text-[var(--org-primary)] truncate">
-                      {org.name}
-                    </span>
-                    <span className="text-xs text-gray-500 mt-1 line-clamp-2 h-8.5">
-                      {org.tagline}
-                    </span>
-                  </div>
+          {/* iPhone / iOS Coming Soon Card */}
+          <Card className="p-8 border border-gray-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/50 shadow-sm rounded-3xl flex flex-col justify-between opacity-90">
+            <div>
+              <div className="h-12 w-12 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center font-bold mb-4">
+                <Clock className="h-6 w-6" />
+              </div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-slate-500 font-bold">
+                iOS Platform
+              </span>
+              <h3 className="text-xl font-black font-display text-gray-900 dark:text-white mt-1">
+                iPhone App Coming Soon
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-slate-400 mt-2 leading-relaxed">
+                Our native iOS application for iPhone and iPad is currently undergoing Apple App Store review and testing.
+              </p>
 
-                  <div className="flex items-center justify-between border-t border-gray-100 dark:border-slate-700 pt-4 mt-auto">
-                    <div className="flex flex-col gap-0.5 font-sans leading-none border-0 select-none">
-                      <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
-                        {isRw ? 'Ihuriro' : isFr ? 'Espace' : 'Workspace'}
-                      </span>
-                      <span className="font-mono text-[11px] font-bold text-[var(--org-primary,#15803D)]">
-                        @{org.slug}
-                      </span>
-                    </div>
-                    <Link to={`/@${org.slug}`} onClick={(e) => e.stopPropagation()}>
-                      <Button size="sm" icon={<Eye className="h-3.5 w-3.5" />}>
-                        {isRw ? 'Sura Umuryango' : isFr ? 'Voir l\'Organisation' : 'View Organization'}
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        )}
+              <div className="mt-5 p-4 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-xs text-gray-600 dark:text-slate-300">
+                <span className="font-bold text-gray-900 dark:text-white block mb-1">Web Access Available</span>
+                In the meantime, you can easily use Impacto on any iPhone via Safari by visiting our responsive web portal.
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-800">
+              <div className="w-full py-3 px-6 bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-sm font-bold rounded-2xl text-center cursor-not-allowed select-none flex items-center justify-center gap-2">
+                <Clock className="h-4 w-4" />
+                <span>iPhone Version Coming Soon</span>
+              </div>
+              <span className="text-[10px] text-slate-400 text-center block mt-2 font-mono">
+                Expected Q2 2026 on App Store
+              </span>
+            </div>
+          </Card>
+        </div>
       </div>
     </section>
   );

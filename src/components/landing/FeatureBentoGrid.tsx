@@ -7,7 +7,6 @@ import {
   FileSpreadsheet,
   Vote,
   QrCode,
-  Check,
   Sparkles,
 } from 'lucide-react';
 
@@ -37,16 +36,15 @@ export const FeatureBentoGrid: React.FC = () => {
           {/* Feature 1: Branded Public Portals */}
           <div
             id="capability-card-portals"
-            className="card-glow bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:shadow-md transition duration-200 relative overflow-hidden group"
+            className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:border-emerald-500/40 transition duration-200 relative overflow-hidden group"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 opacity-80" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-[#156c45] dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
+                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-[#156c45] dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
                   <Globe className="h-5 w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-700/50">
-                  <Check className="h-3 w-3" /> Free Forever Plan
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
+                  Module 01
                 </span>
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-base font-display">
@@ -72,16 +70,15 @@ export const FeatureBentoGrid: React.FC = () => {
           {/* Feature 2: Auditable Mobile Money Gates */}
           <div
             id="capability-card-momo"
-            className="card-glow bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:shadow-md transition duration-200 relative overflow-hidden group"
+            className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:border-emerald-500/40 transition duration-200 relative overflow-hidden group"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-600 opacity-80" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
+                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
                   <Heart className="h-5 w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-700/50">
-                  <Check className="h-3 w-3" /> Free Forever Plan
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
+                  Module 02
                 </span>
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-base font-display">
@@ -107,16 +104,15 @@ export const FeatureBentoGrid: React.FC = () => {
           {/* Feature 3: Interactive Member Rosters */}
           <div
             id="capability-card-roster"
-            className="card-glow bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:shadow-md transition duration-200 relative overflow-hidden group"
+            className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:border-emerald-500/40 transition duration-200 relative overflow-hidden group"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 opacity-80" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
+                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
                   <Users className="h-5 w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-700/50">
-                  <Check className="h-3 w-3" /> Free Forever Plan
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
+                  Module 03
                 </span>
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-base font-display">
@@ -142,16 +138,15 @@ export const FeatureBentoGrid: React.FC = () => {
           {/* Feature 4: Branded Office & Letterhead Studio */}
           <div
             id="capability-card-office"
-            className="card-glow bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:shadow-md transition duration-200 relative overflow-hidden group"
+            className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:border-emerald-500/40 transition duration-200 relative overflow-hidden group"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-600 opacity-80" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
+                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
                   <FileSpreadsheet className="h-5 w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-700/50">
-                  <Check className="h-3 w-3" /> Free Forever Plan
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
+                  Module 04
                 </span>
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-base font-display">
@@ -177,16 +172,15 @@ export const FeatureBentoGrid: React.FC = () => {
           {/* Feature 5: Democratic Digital Voting & Quorum */}
           <div
             id="capability-card-voting"
-            className="card-glow bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:shadow-md transition duration-200 relative overflow-hidden group"
+            className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:border-emerald-500/40 transition duration-200 relative overflow-hidden group"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 opacity-80" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
+                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-700 dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
                   <Vote className="h-5 w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-700/50">
-                  <Check className="h-3 w-3" /> Free Forever Plan
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
+                  Module 05
                 </span>
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-base font-display">
@@ -212,16 +206,15 @@ export const FeatureBentoGrid: React.FC = () => {
           {/* Feature 6: Dynamic QR Attendance & Event Radar */}
           <div
             id="capability-card-attendance"
-            className="card-glow bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:shadow-md transition duration-200 relative overflow-hidden group"
+            className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 p-6 rounded-2xl flex flex-col justify-between gap-5 shadow-xs hover:border-emerald-500/40 transition duration-200 relative overflow-hidden group"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-600 opacity-80" />
             <div>
               <div className="flex items-center justify-between mb-4">
-                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl text-[#156c45] dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
+                <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-[#156c45] dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
                   <QrCode className="h-5 w-5" />
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md border border-emerald-200/60 dark:border-emerald-700/50">
-                  <Check className="h-3 w-3" /> Free Forever Plan
+                <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
+                  Module 06
                 </span>
               </div>
               <h3 className="font-bold text-gray-900 dark:text-white text-base font-display">

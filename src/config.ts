@@ -38,11 +38,11 @@ export const APP_CONFIG = {
   PORTAL: {
     BASE_URL: getEnv('VITE_PORTAL_BASE_URL', 'https://impacto-portal.vercel.app'),
     SIGN_IN_URL: getEnv('VITE_PORTAL_SIGN_IN_URL', 'https://impacto-portal.vercel.app/'),
-    SIGN_UP_URL: getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://impacto-portal.vercel.app/signup'),
+    SIGN_UP_URL: getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://impacto-portal.vercel.app/'),
     DASHBOARD_URL: getEnv('VITE_PORTAL_DASHBOARD_URL', 'https://impacto-portal.vercel.app/'),
     GET_REGISTER_ORG_URL: (orgId?: string) => {
       const base = getEnv('VITE_PORTAL_BASE_URL', 'https://impacto-portal.vercel.app');
-      return orgId ? `${base}/signup?org_id=${encodeURIComponent(orgId)}` : `${base}/signup`;
+      return orgId ? `${base}/?org_id=${encodeURIComponent(orgId)}` : `${base}/`;
     },
   },
 

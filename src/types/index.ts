@@ -8,6 +8,8 @@ export interface Organization {
   vision?: string;
   org_category: string;
   location_name?: string;
+  sector?: string;
+  province?: string;
   contact_us?: string;
   cover_url?: string;
   logo_url?: string;
@@ -124,4 +126,19 @@ export interface MarketplaceProduct {
   image_url?: string;
   available_stock?: number;
   contact_phone?: string;
+}
+
+export interface Certificate {
+  id: string;
+  org_id?: string;
+  certificate_code: string;
+  recipient_name: string;
+  recipient_email?: string;
+  title: string;
+  description?: string;
+  issue_date: string;
+  status?: string;
+  signatory_name?: string;
+  signatory_title?: string;
+  created_at?: string;
 }

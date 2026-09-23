@@ -11,6 +11,8 @@ import {
   ArrowLeft,
   Lock,
   Check,
+  Maximize2,
+  X,
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useOrgStore } from '../store/orgStore';
@@ -25,6 +27,11 @@ import {
 import { Button, Card, Badge, Modal, Tabs, EmptyState } from '../components/ui';
 import { ResolvedImage } from '../components/ResolvedMedia';
 import { getStoragePublicUrl } from '../lib/storageService';
+import {
+  getCategoryFallbackGallery,
+  getCategoryFallbackCover,
+  getCategoryFallbackLogo,
+} from '../lib/imagePlaceholders';
 import { Organization } from '../types';
 import { PORTAL_LINKS } from '../constants/links';
 
@@ -44,32 +51,38 @@ export const OrgPublicPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('about');
   const [successMsg, setSuccessMsg] = useState('');
   const [showJoinModal, setShowJoinModal] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  // Dynamic gallery parsing (Hook must run unconditionally)
+  // Dynamic gallery parsing with authentic category fallbacks
   const parsedGalleryUrls: string[] = React.useMemo(() => {
-    if (!org?.gallery_urls) return [];
-    if (Array.isArray(org.gallery_urls)) {
-      return (org.gallery_urls as any[])
-        .map((u) => (typeof u === 'string' ? u.trim() : typeof u?.url === 'string' ? u.url.trim() : ''))
-        .filter((u) => Boolean(u));
-    }
-    if (typeof org.gallery_urls === 'string') {
-      try {
-        const parsed = JSON.parse(org.gallery_urls);
-        if (Array.isArray(parsed)) {
-          return parsed
-            .map((u) => (typeof u === 'string' ? u.trim() : typeof u?.url === 'string' ? u.url.trim() : ''))
-            .filter((u) => Boolean(u));
+    let urls: string[] = [];
+    if (org?.gallery_urls) {
+      if (Array.isArray(org.gallery_urls)) {
+        urls = (org.gallery_urls as any[])
+          .map((u) => (typeof u === 'string' ? u.trim() : typeof u?.url === 'string' ? u.url.trim() : ''))
+          .filter((u) => Boolean(u));
+      } else if (typeof org.gallery_urls === 'string') {
+        try {
+          const parsed = JSON.parse(org.gallery_urls);
+          if (Array.isArray(parsed)) {
+            urls = parsed
+              .map((u) => (typeof u === 'string' ? u.trim() : typeof u?.url === 'string' ? u.url.trim() : ''))
+              .filter((u) => Boolean(u));
+          }
+        } catch {
+          urls = (org.gallery_urls as string)
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean);
         }
-      } catch {
-        return (org.gallery_urls as string)
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean);
       }
     }
-    return [];
-  }, [org?.gallery_urls]);
+    // If no custom photos uploaded, provide curated community category photos
+    if (urls.length === 0 && org) {
+      return getCategoryFallbackGallery(org.org_category);
+    }
+    return urls;
+  }, [org?.gallery_urls, org?.org_category]);
 
   // Apply organization branding dynamically in head
   useEffect(() => {
@@ -272,23 +285,35 @@ export const OrgPublicPage: React.FC = () => {
                 {parsedGalleryUrls.length > 0 && (
                   <Card
                     title={
-                      <span className="text-sm font-bold font-display text-gray-900 dark:text-white">
-                        Organizational Gallery
-                      </span>
+                      <div className="flex items-center justify-between w-full">
+                        <span className="text-sm font-bold font-display text-gray-900 dark:text-white">
+                          Organizational Gallery
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-400">
+                          {parsedGalleryUrls.length} {parsedGalleryUrls.length === 1 ? 'photo' : 'photos'}
+                        </span>
+                      </div>
                     }
                   >
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-1">
                       {parsedGalleryUrls.map((url: string, idx: number) => (
                         <div
                           key={idx}
-                          className="group aspect-square rounded-xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-gray-100 dark:bg-slate-800 shadow-2xs relative"
+                          onClick={() => setPreviewImage(getStoragePublicUrl(url, 'gallery'))}
+                          className="group aspect-square rounded-xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-gray-100 dark:bg-slate-800 shadow-2xs relative cursor-pointer"
                         >
                           <ResolvedImage
                             src={url}
-                            alt={`Gallery photo ${idx + 1}`}
+                            fallbackSrc={getCategoryFallbackGallery(org.org_category)[idx % getCategoryFallbackGallery(org.org_category).length]}
+                            alt={`${org.name} gallery photo ${idx + 1}`}
                             className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                             bucketName="gallery"
                           />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-200 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <div className="h-8 w-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-slate-100 flex items-center justify-center shadow-md">
+                              <Maximize2 className="h-4 w-4" />
+                            </div>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -535,6 +560,31 @@ export const OrgPublicPage: React.FC = () => {
         )}
       </div>
 
+      {/* Fullscreen Photo Lightbox Modal */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+          onClick={() => setPreviewImage(null)}
+        >
+          <button
+            onClick={() => setPreviewImage(null)}
+            className="absolute top-5 right-5 h-10 w-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center backdrop-blur-md transition cursor-pointer border border-white/20 shadow-lg"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div
+            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl border border-white/10 shadow-2xl bg-black/50"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={previewImage}
+              alt="Expanded view"
+              className="max-h-[82vh] w-auto max-w-full object-contain rounded-xl"
+            />
+          </div>
+        </div>
+      )}
+
       {/* Join US Modal */}
       <Modal
         open={showJoinModal}
@@ -568,8 +618,10 @@ const OrgBrandingHeader: React.FC<{
   onJoin: () => void;
 }> = ({ org, onShare, onJoin }) => {
   const [logoErr, setLogoErr] = useState(false);
-  const rawLogo = org.logo_url || org.dashboard_logo || '/logo.png';
-  const resolvedLogo = rawLogo && !rawLogo.startsWith('icon:') ? getStoragePublicUrl(rawLogo, 'avatars') : '';
+  const rawLogo =
+    org.logo_url || org.dashboard_logo || getCategoryFallbackLogo(org.org_category) || '/logo.png';
+  const resolvedLogo =
+    rawLogo && !rawLogo.startsWith('icon:') ? getStoragePublicUrl(rawLogo, 'avatars') : '';
 
   const getInitials = (name: string) => {
     return name
@@ -585,6 +637,8 @@ const OrgBrandingHeader: React.FC<{
   const isGradientCover =
     org.cover_url && (org.cover_url.startsWith('from-') || !org.cover_url.includes('/'));
 
+  const coverFallback = getCategoryFallbackCover(org.org_category);
+
   return (
     <div className="bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800">
       {/* Cover picture */}
@@ -595,17 +649,18 @@ const OrgBrandingHeader: React.FC<{
           ) : (
             <ResolvedImage
               src={org.cover_url}
+              fallbackSrc={coverFallback}
               alt={org.name}
               className="h-full w-full object-cover"
               bucketName="covers"
             />
           )
         ) : (
-          <div
-            className="h-full w-full"
-            style={{
-              background: `linear-gradient(135deg, var(--org-primary, #10b981) 0%, #064e3b 100%)`,
-            }}
+          <ResolvedImage
+            src={coverFallback}
+            alt={org.name}
+            className="h-full w-full object-cover"
+            bucketName="covers"
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
@@ -625,7 +680,7 @@ const OrgBrandingHeader: React.FC<{
               <img
                 src={resolvedLogo}
                 alt={org.name}
-                className="h-full w-full object-contain rounded-xl"
+                className="h-full w-full object-cover rounded-xl"
                 onError={() => setLogoErr(true)}
               />
             ) : (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PORTAL_LINKS } from '../../constants/links';
 
@@ -70,6 +71,12 @@ export const FooterSection: React.FC<FooterSectionProps> = ({
               <a href={PORTAL_LINKS.SIGN_IN} className="hover:text-white transition">
                 Interactive Goals Tracker
               </a>
+            </li>
+            <li>
+              <Link to="/verify" className="text-emerald-400 font-bold hover:text-emerald-300 transition flex items-center gap-1.5 mt-1">
+                <span>Verify Certificate & ID</span>
+                <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded border border-emerald-500/30 font-mono">PUBLIC</span>
+              </Link>
             </li>
           </ul>
         </div>
