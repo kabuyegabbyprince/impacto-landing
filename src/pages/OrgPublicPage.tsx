@@ -34,6 +34,7 @@ import {
 } from '../lib/imagePlaceholders';
 import { Organization } from '../types';
 import { PORTAL_LINKS } from '../constants/links';
+import { WorkspaceSimulator } from '../components/WorkspaceSimulator';
 
 export const OrgPublicPage: React.FC = () => {
   const { slug } = useParams();
@@ -240,12 +241,17 @@ export const OrgPublicPage: React.FC = () => {
             ...((org.show_impact_publicly ?? true) ? [{ id: 'impact', label: 'Impact Log' }] : []),
             { id: 'news', label: 'News Feed' },
             ...(org.marketplace_enabled ? [{ id: 'marketplace', label: 'Marketplace' }] : []),
+            { id: 'workspace', label: 'Workspace Audit & Billing' },
           ]}
           active={activeTab}
           onChange={setActiveTab}
         />
 
         {/* Tab content renders */}
+        {activeTab === 'workspace' && (
+          <WorkspaceSimulator orgName={org.name} orgSlug={org.slug} />
+        )}
+
         {activeTab === 'marketplace' && org.marketplace_enabled && (
           <OrganizationMarketplace orgId={org.id} org={org} isPublic={true} />
         )}

@@ -6,6 +6,7 @@ import { DonatePage } from './pages/DonatePage';
 import { EventCheckinPage } from './pages/EventCheckinPage';
 import { CertificateVerifyPage } from './pages/CertificateVerifyPage';
 import { PORTAL_LINKS } from './constants/links';
+import { useMobileViewport } from './hooks/useMobileViewport';
 
 interface Props {
   children?: ReactNode;
@@ -71,6 +72,7 @@ const ExternalRedirect: React.FC<{ url: string }> = ({ url }) => {
 };
 
 export function App() {
+  useMobileViewport();
   return (
     <ErrorBoundary>
       <BrowserRouter>
