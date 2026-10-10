@@ -11,12 +11,7 @@ export const HeroSection: React.FC = () => {
     <section className="pt-36 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center relative overflow-hidden">
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[550px] h-[250px] bg-emerald-500/10 dark:bg-emerald-400/5 blur-[100px] pointer-events-none rounded-full" />
 
-      <span className="inline-flex items-center gap-2 px-3.5 py-1 text-[10px] font-bold tracking-widest text-[#15803D] bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 rounded-full font-display uppercase">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-        {t('landing.hero_badge')}
-      </span>
-
-      <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-white font-display mt-6 max-w-4xl leading-tight uppercase">
+      <h1 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-white font-display mt-2 max-w-4xl leading-tight uppercase">
         {t('landing.title')}
       </h1>
 

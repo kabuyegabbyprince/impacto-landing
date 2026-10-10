@@ -7,7 +7,6 @@ import {
   FileSpreadsheet,
   Vote,
   QrCode,
-  Sparkles,
 } from 'lucide-react';
 
 export const FeatureBentoGrid: React.FC = () => {
@@ -20,8 +19,7 @@ export const FeatureBentoGrid: React.FC = () => {
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-[11px] font-bold tracking-widest text-[#156c45] dark:text-emerald-400 uppercase font-mono shadow-3xs">
-            <Sparkles className="h-3 w-3" />
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/80 text-[11px] font-bold tracking-widest text-[#156c45] dark:text-emerald-400 uppercase font-mono shadow-3xs">
             {t('landing.capabilities_badge')}
           </span>
           <h2 className="text-3xl md:text-4xl font-extrabold font-display text-gray-900 dark:text-white mt-3 tracking-tight">
