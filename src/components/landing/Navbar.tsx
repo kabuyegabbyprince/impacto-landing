@@ -21,8 +21,10 @@ export const Navbar: React.FC = () => {
           <img
             src="/logo.png"
             onError={() => setLogoError(true)}
-            className="h-8 w-auto shrink-0 max-w-[140px] object-contain"
+            className="h-8 w-auto shrink-0 max-w-[140px] object-contain transition-transform group-hover:scale-105"
             alt="Impacto Logo"
+            loading="eager"
+            decoding="async"
           />
         ) : (
           <div className="flex items-center gap-2">
