@@ -50,6 +50,7 @@ export const APP_CONFIG = {
   // Contact & Support Info
   SUPPORT: {
     EMAIL: getEnv('VITE_SUPPORT_EMAIL', 'support@impacto.rw'),
+    PHONE: getEnv('VITE_SUPPORT_PHONE', '0794421533'),
   },
 
   // Financial & Currency Settings

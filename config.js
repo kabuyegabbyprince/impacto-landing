@@ -29,6 +29,7 @@ export const CONFIG = {
 
   // Contact
   SUPPORT_EMAIL: 'support@impacto.rw',
+  SUPPORT_PHONE: '0794421533',
 
   // Currency & Rates
   CURRENCY: {

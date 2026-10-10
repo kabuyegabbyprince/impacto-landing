@@ -94,7 +94,44 @@ export const OrgPublicPage: React.FC = () => {
       document.documentElement.style.setProperty('--org-primary-l', primary + '14');
       document.documentElement.style.setProperty('--org-secondary', secondary);
       document.documentElement.style.setProperty('--org-secondary-l', secondary + '14');
+
+      // Dynamic SEO & Social Sharing Tags
+      const pageTitle = `${org.name} — Impacto`;
+      const pageDesc = org.tagline || org.description || `Verified community workspace for ${org.name} on Impacto.`;
+      const canonicalUrl = `https://impacto.rw/@${org.slug}`;
+
+      document.title = pageTitle;
+
+      const setMeta = (nameOrProperty: string, content: string, isProperty = false) => {
+        const selector = isProperty ? `meta[property="${nameOrProperty}"]` : `meta[name="${nameOrProperty}"]`;
+        let meta = document.querySelector(selector);
+        if (!meta) {
+          meta = document.createElement('meta');
+          if (isProperty) meta.setAttribute('property', nameOrProperty);
+          else meta.setAttribute('name', nameOrProperty);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      };
+
+      setMeta('title', pageTitle);
+      setMeta('description', pageDesc);
+      setMeta('og:title', pageTitle, true);
+      setMeta('og:description', pageDesc, true);
+      setMeta('og:url', canonicalUrl, true);
+      setMeta('twitter:title', pageTitle);
+      setMeta('twitter:description', pageDesc);
+      setMeta('twitter:url', canonicalUrl);
+
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', canonicalUrl);
     }
+
+    return () => {
+      document.title = 'Impacto — Next-Generation Platform Solutions';
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', 'https://impacto.rw/');
+    };
   }, [org]);
 
   // Redirect selected tab if it is configured to be hidden

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Phone, Mail } from 'lucide-react';
 import { Modal, Input, Button } from '../ui';
 import { useSubmitErrorReport } from '../../hooks/useImpactoData';
+import { PORTAL_LINKS } from '../../constants/links';
 
 interface ContactModalProps {
   open: boolean;
@@ -71,7 +72,30 @@ export const ContactModal: React.FC<ContactModalProps> = ({ open, onClose }) => 
         </div>
       ) : (
         <form onSubmit={handleContactSubmit} className="flex flex-col gap-4 text-xs font-semibold">
-          <p className="text-gray-500 dark:text-slate-400 font-medium leading-relaxed mb-1">
+          <div className="p-3 bg-emerald-50/80 dark:bg-emerald-950/30 rounded-xl border border-emerald-200 dark:border-emerald-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <span className="text-[11px] font-bold text-emerald-900 dark:text-emerald-300">
+              Customer Support Desk:
+            </span>
+            <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+              <a
+                href={`tel:${PORTAL_LINKS.CONTACT_SUPPORT_PHONE}`}
+                className="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-bold hover:underline"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                <span>Tel: {PORTAL_LINKS.CONTACT_SUPPORT_PHONE}</span>
+              </a>
+              <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+              <a
+                href={`mailto:${PORTAL_LINKS.CONTACT_SUPPORT_EMAIL}`}
+                className="inline-flex items-center gap-1.5 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span>{PORTAL_LINKS.CONTACT_SUPPORT_EMAIL}</span>
+              </a>
+            </div>
+          </div>
+
+          <p className="text-gray-500 dark:text-slate-400 font-medium leading-relaxed">
             Have complex questions about setting up your Organization, custom local workflows, or Mobile
             Money integrations? Fill in the form and our team in Kigali will respond promptly.
           </p>

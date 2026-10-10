@@ -1,6 +1,6 @@
 {
   "name": "Impacto Landing",
-  "description": "Modern SaaS platform and public portal directory for Rwandan cooperatives, NGOs, and community associations with Mobile Money ledgers and impact tracking.",
+  "description": "Empowering organizations with intelligent digital tools and management software.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

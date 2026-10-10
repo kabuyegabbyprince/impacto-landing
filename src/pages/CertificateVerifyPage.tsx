@@ -30,11 +30,19 @@ export const CertificateVerifyPage: React.FC = () => {
 
   // Sync state if URL changes
   useEffect(() => {
+    document.title = urlCode
+      ? `Verify Certificate: ${urlCode} — Impacto`
+      : 'Verify Digital Certificate & Credentials — Impacto';
+
     if (urlCode) {
       setInputCode(urlCode);
       setActiveCode(urlCode);
       verifyCertificate(urlCode);
     }
+
+    return () => {
+      document.title = 'Impacto — Next-Generation Platform Solutions';
+    };
   }, [urlCode]);
 
   const verifyCertificate = async (codeToVerify: string) => {

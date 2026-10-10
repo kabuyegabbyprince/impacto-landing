@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Phone, Mail } from 'lucide-react';
 import { PORTAL_LINKS } from '../../constants/links';
 
 interface FooterSectionProps {
@@ -129,8 +130,21 @@ export const FooterSection: React.FC<FooterSectionProps> = ({
           >
             {t('landing.footer_btn')}
           </button>
-          <div className="text-xs font-mono font-bold text-emerald-500 mt-1">
-            {PORTAL_LINKS.CONTACT_SUPPORT_EMAIL}
+          <div className="flex flex-col gap-1.5 mt-1 text-xs font-mono">
+            <a
+              href={`mailto:${PORTAL_LINKS.CONTACT_SUPPORT_EMAIL}`}
+              className="font-bold text-emerald-400 hover:text-emerald-300 transition flex items-center gap-1.5"
+            >
+              <Mail className="h-3.5 w-3.5 shrink-0" />
+              <span>{PORTAL_LINKS.CONTACT_SUPPORT_EMAIL}</span>
+            </a>
+            <a
+              href={`tel:${PORTAL_LINKS.CONTACT_SUPPORT_PHONE}`}
+              className="font-bold text-slate-300 hover:text-emerald-400 transition flex items-center gap-1.5"
+            >
+              <Phone className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+              <span>Tel: {PORTAL_LINKS.CONTACT_SUPPORT_PHONE}</span>
+            </a>
           </div>
           <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
             Multi-language support available in Kinyarwanda, English, and French.
