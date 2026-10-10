@@ -8,7 +8,7 @@
 export const CONFIG = {
   // Application details
   APP_NAME: 'Impacto',
-  APP_DOMAIN: 'impact-o.app',
+  APP_DOMAIN: 'impacto.rw',
   OFFICE_LOCATION: 'Kigali Office • Rwanda',
   COPYRIGHT_HOLDER: 'Virellix Inc.',
 
@@ -28,7 +28,7 @@ export const CONFIG = {
   },
 
   // Contact
-  SUPPORT_EMAIL: 'support@impact-o.app',
+  SUPPORT_EMAIL: 'support@impacto.rw',
 
   // Currency & Rates
   CURRENCY: {

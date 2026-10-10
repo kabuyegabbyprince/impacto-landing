@@ -346,7 +346,7 @@ export const OrgPublicPage: React.FC = () => {
                     <div className="flex items-center gap-2.5 text-gray-500 dark:text-slate-400">
                       <Globe className="h-4.5 w-4.5 text-[var(--org-primary,#10b981)] shrink-0" />
                       <span className="text-gray-800 dark:text-slate-200 truncate font-semibold">
-                        impact-o.app/@{org.slug}
+                        {PORTAL_LINKS.DOMAIN_PREFIX}/@{org.slug}
                       </span>
                     </div>
 

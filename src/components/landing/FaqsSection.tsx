@@ -32,7 +32,7 @@ export const FaqsSection: React.FC<FaqsSectionProps> = ({ onOpenContact }) => {
       id: 3,
       question: 'Ese mbuga z\'imiryango ziba ziri kuri Google / moteri zishakisha?',
       answer:
-        'Yego! Buri muryango wemejwe uhabwa urubuga rwa rwo kuri impact-o.app/@slug. Uru rubuga rugaragaza ibikorwa bihari, impeshyi z\'inkunga zakusanyijwe, amatangazo, n\'inkunga zose mu buryo bugaragarira buri wese.',
+        'Yego! Buri muryango wemejwe uhabwa urubuga rwa rwo kuri impacto.rw/@slug. Uru rubuga rugaragaza ibikorwa bihari, impeshyi z\'inkunga zakusanyijwe, amatangazo, n\'inkunga zose mu buryo bugaragarira buri wese.',
     },
     {
       id: 4,
@@ -77,7 +77,7 @@ export const FaqsSection: React.FC<FaqsSectionProps> = ({ onOpenContact }) => {
       id: 3,
       question: 'Les pages publiques sous @slug sont-elles indexées par les moteurs de recherche ?',
       answer:
-        'Oui ! Chaque espace de travail vérifié reçoit un profil public sur impact-o.app/@slug. Cette page présente les programmes civiques actifs, les jalons de campagne en temps réel, les annonces publiques et un mur de donateurs.',
+        'Oui ! Chaque espace de travail vérifié reçoit un profil public sur impacto.rw/@slug. Cette page présente les programmes civiques actifs, les jalons de campagne en temps réel, les annonces publiques et un mur de donateurs.',
     },
     {
       id: 4,
@@ -122,7 +122,7 @@ export const FaqsSection: React.FC<FaqsSectionProps> = ({ onOpenContact }) => {
       id: 3,
       question: 'Are the public organization pages under @slug search-engine indexed?',
       answer:
-        'Yes! Every verified workspace receives a public profile at impact-o.app/@slug. This public page showcases active civic programs, real-time campaign milestones, public announcements, and a donor wall to securely verify impact to the community and global partners.',
+        'Yes! Every verified workspace receives a public profile at impacto.rw/@slug. This public page showcases active civic programs, real-time campaign milestones, public announcements, and a donor wall to securely verify impact to the community and global partners.',
     },
     {
       id: 4,

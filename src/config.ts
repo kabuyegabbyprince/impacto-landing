@@ -19,7 +19,7 @@ export const APP_CONFIG = {
   // Brand & General Metadata
   APP_NAME: 'Impacto',
   APP_TAGLINE: 'Empower Rwandan Cooperatives & Communities',
-  APP_DOMAIN: getEnv('VITE_APP_DOMAIN', 'impact-o.app'),
+  APP_DOMAIN: getEnv('VITE_APP_DOMAIN', 'impacto.rw'),
   OFFICE_LOCATION: 'Kigali Office • Rwanda',
   COPYRIGHT_HOLDER: 'Virellix Inc.',
 
@@ -36,19 +36,20 @@ export const APP_CONFIG = {
 
   // External Portal & Authentication Links
   PORTAL: {
-    BASE_URL: getEnv('VITE_PORTAL_BASE_URL', 'https://impacto-portal.vercel.app'),
-    SIGN_IN_URL: getEnv('VITE_PORTAL_SIGN_IN_URL', 'https://impacto-portal.vercel.app/'),
-    SIGN_UP_URL: getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://impacto-portal.vercel.app/'),
-    DASHBOARD_URL: getEnv('VITE_PORTAL_DASHBOARD_URL', 'https://impacto-portal.vercel.app/'),
+    BASE_URL: getEnv('VITE_PORTAL_BASE_URL', 'https://impacto.rw/'),
+    SIGN_IN_URL: getEnv('VITE_PORTAL_SIGN_IN_URL', 'https://app.impacto.rw/'),
+    SIGN_UP_URL: getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://app.impacto.rw/'),
+    DASHBOARD_URL: getEnv('VITE_PORTAL_DASHBOARD_URL', 'https://app.impacto.rw/'),
     GET_REGISTER_ORG_URL: (orgId?: string) => {
-      const base = getEnv('VITE_PORTAL_BASE_URL', 'https://impacto-portal.vercel.app');
-      return orgId ? `${base}/?org_id=${encodeURIComponent(orgId)}` : `${base}/`;
+      const base = getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://app.impacto.rw');
+      const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+      return orgId ? `${cleanBase}/?org_id=${encodeURIComponent(orgId)}` : `${cleanBase}/`;
     },
   },
 
   // Contact & Support Info
   SUPPORT: {
-    EMAIL: getEnv('VITE_SUPPORT_EMAIL', 'support@impact-o.app'),
+    EMAIL: getEnv('VITE_SUPPORT_EMAIL', 'support@impacto.rw'),
   },
 
   // Financial & Currency Settings
