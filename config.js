@@ -21,10 +21,10 @@ export const CONFIG = {
 
   // External Portal & Authentication Links
   PORTAL: {
-    BASE_URL: 'https://impacto-portal.vercel.app',
-    SIGN_IN_URL: 'https://impacto-portal.vercel.app/',
-    SIGN_UP_URL: 'https://impacto-portal.vercel.app/',
-    DASHBOARD_URL: 'https://impacto-portal.vercel.app/',
+    BASE_URL: 'https://impacto.rw/',
+    SIGN_IN_URL: 'https://app.impacto.rw/',
+    SIGN_UP_URL: 'https://app.impacto.rw/',
+    DASHBOARD_URL: 'https://app.impacto.rw/',
   },
 
   // Contact
