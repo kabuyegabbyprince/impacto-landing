@@ -40,9 +40,9 @@ export const HeroSection: React.FC = () => {
       {/* Highlight Tickers */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mt-16 pt-10 border-t border-gray-200/60 dark:border-slate-800/80 w-full text-center">
         <div className="flex flex-col">
-          <span className="text-2xl font-black text-gray-900 dark:text-white">1M+</span>
+          <span className="text-2xl font-black text-gray-900 dark:text-white">Hundreds</span>
           <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mt-1">
-            {t('landing.ticker_trees')}
+            {t('landing.ticker_in_use')}
           </span>
         </div>
         <div className="flex flex-col">
