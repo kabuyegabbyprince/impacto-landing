@@ -78,16 +78,16 @@ export function evaluateSubscription(org: OrganizationSubscription): Subscriptio
     free: 30,
     starter: 100,
     growth: 500,
-    pro: 2500,
-    vip: 10000,
+    pro: 999999, // Unlimited
+    vip: 999999,
   };
 
   const baseStorageQuotas: Record<string, number> = {
     free: 100, // MB
     starter: 500,
-    growth: 2000,
-    pro: 10000,
-    vip: 50000,
+    growth: 5000, // 5 GB
+    pro: 999999, // Unlimited
+    vip: 999999,
   };
 
   const tier = org.plan_tier || 'free';

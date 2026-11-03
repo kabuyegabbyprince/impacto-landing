@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp, Users, HardDrive, ArrowRight } from 'lucide-react';
 import { Button } from '../ui';
 import { useCurrencyStore } from '../../store/currencyStore';
 import { PORTAL_LINKS } from '../../constants/links';
@@ -12,233 +12,375 @@ export const PricingSection: React.FC = () => {
   const isRw = i18n.language?.startsWith('rw');
   const isFr = i18n.language?.startsWith('fr');
 
+  const [expandedPlans, setExpandedPlans] = useState<Record<string, boolean>>({
+    free: false,
+    growth: false,
+    pro: false,
+  });
+
+  const togglePlanExpansion = (planId: string) => {
+    setExpandedPlans((prev) => ({
+      ...prev,
+      [planId]: !prev[planId],
+    }));
+  };
+
   return (
     <section
       id="pricing"
-      className="py-20 bg-gray-50/55 dark:bg-slate-950 border-t border-gray-150 dark:border-slate-900 px-6"
+      className="py-24 bg-white dark:bg-slate-950 border-t border-slate-150 dark:border-slate-900 px-6"
     >
       <div className="max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-[10px] font-mono tracking-widest text-[#15803D] uppercase block font-bold">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <p className="text-xs font-mono font-bold tracking-widest text-emerald-700 dark:text-emerald-400 uppercase">
             {t('landing.pricing_badge')}
-          </span>
-          <h2 className="text-2xl md:text-3xl font-bold font-display mt-1 text-gray-950 dark:text-white">
+          </p>
+          <h2 className="text-3xl md:text-4xl font-extrabold font-display mt-2 text-slate-950 dark:text-white tracking-tight">
             {t('landing.pricing_title')}
           </h2>
-          <p className="text-xs text-gray-500 mt-2 max-w-md mx-auto">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-3 max-w-lg mx-auto leading-relaxed">
             {t('landing.pricing_desc')}
           </p>
         </div>
 
-        {/* Pricing Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 select-none">
-          {/* 1. Free Forever */}
-          <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 p-6 rounded-2xl flex flex-col justify-between hover:border-emerald-600 transition">
+        {/* Modern Spacious Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch select-none">
+          
+          {/* ======================================================== */}
+          {/* PLAN 1: FREE FOREVER                                     */}
+          {/* ======================================================== */}
+          <div className="bg-slate-50/50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 p-8 rounded-3xl flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300">
             <div>
-              <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                {isRw ? 'Ubuntu' : isFr ? 'Gratuit pour toujours' : 'Free Forever'}
-              </span>
-              <h3 className="text-base font-extrabold text-gray-900 dark:text-white mt-1">
-                {isRw ? 'Plan y\'Ubuntu' : isFr ? 'Plan Gratuit' : 'Free Forever Plan'}
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
+                {isRw ? 'Plan y\'Ubuntu' : isFr ? 'Plan Gratuit' : 'Free Plan'}
               </h3>
-              <p className="text-2xl font-black text-slate-950 dark:text-white mt-3">
-                {formatAmount(convertToRWF(0, 'RWF'), 'USD')}
-                <span className="text-xs font-semibold text-gray-400">
-                  {isRw ? ' / burundu' : isFr ? ' / pour toujours' : ' / forever'}
+              
+              <div className="mt-4 flex items-baseline gap-2">
+                <span className="text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">$0</span>
+                <span className="text-xs font-medium text-slate-500">
+                  {isRw ? '/ burundu' : isFr ? '/ pour toujours' : '/ forever'}
                 </span>
+              </div>
+              
+              <p className="text-xs text-slate-500 font-mono mt-1">
+                {formatAmount(convertToRWF(0, 'RWF'), activeCurrency)} • Zero cost forever
               </p>
-              <p className="text-[10px] text-gray-400 font-mono mt-0.5">
-                {formatAmount(convertToRWF(0, 'RWF'), activeCurrency)}
+
+              {/* Limits info */}
+              <div className="mt-6 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-300 font-medium py-3 border-y border-slate-200/60 dark:border-slate-800">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>Up to 30 members</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <HardDrive className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>100 MB storage</span>
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
+                Grassroots community groups and cooperatives testing basic coordination.
               </p>
-              <div className="mt-5 pt-4 border-t border-gray-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-gray-800 dark:text-slate-200">
-                  {isRw ? 'Ibikubiyemo:' : isFr ? 'Comprend :' : 'Includes:'}
+
+              {/* Features */}
+              <div className="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800">
+                <p className="text-xs font-semibold text-slate-900 dark:text-white mb-4">
+                  Included Features:
                 </p>
-                <ul className="text-[11px] text-slate-500 flex flex-col gap-2 mt-2 font-medium">
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Kugeza ku banyamuryango 30' : isFr ? 'Jusqu\'à 30 membres' : 'Up to 30 active members'}
+
+                <ul className="text-xs text-slate-600 dark:text-slate-300 flex flex-col gap-3 font-normal">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Member Directory with role assignment (Admin, Member, Accountant).</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Gucunga umuryango bwite' : isFr ? 'Gestion basique' : 'Basic directory & chat'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Announcements news feed & broadcast communication.</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Ubushobozi bw\'ibanze (100MB)' : isFr ? 'Stockage 100 Mo' : '100MB storage cap'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Standard community chat channels for internal coordination.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Strategic Goals Tracker (view-only dashboard overview).</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Event listings & basic member RSVPs.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Member Dues & fee invoicing schedules.</span>
                   </li>
                 </ul>
+
+                {expandedPlans.free && (
+                  <ul className="text-xs text-slate-600 dark:text-slate-300 flex flex-col gap-3 mt-3 pt-3 border-t border-dashed border-slate-200 dark:border-slate-800 animate-in fade-in duration-200 font-normal">
+                    <li className="flex items-start gap-2.5">
+                      <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>MoMo & bank receipt upload for accountant verification.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>Safe Read-Only Data Preservation (zero record deletion upon trial end).</span>
+                    </li>
+                  </ul>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => togglePlanExpansion('free')}
+                  className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 transition cursor-pointer select-none"
+                >
+                  {expandedPlans.free ? (
+                    <>
+                      <span>Hide additional features</span>
+                      <ChevronUp className="h-3.5 w-3.5" />
+                    </>
+                  ) : (
+                    <>
+                      <span>+2 more features</span>
+                      <ChevronDown className="h-3.5 w-3.5" />
+                    </>
+                  )}
+                </button>
               </div>
             </div>
-            <a href={PORTAL_LINKS.SIGN_UP} className="mt-8">
-              <Button variant="outline" className="w-full text-xs font-bold py-2">
-                {isRw ? 'Tangira Ubuntu' : isFr ? 'Démarrer Gratuitement' : 'Get Started Free'}
+
+            <a href={PORTAL_LINKS.SIGN_UP} className="mt-10">
+              <Button variant="outline" className="w-full text-xs font-semibold py-3 rounded-xl">
+                Get Started Free
               </Button>
             </a>
           </div>
 
-          {/* 2. Starter */}
-          <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 p-6 rounded-2xl flex flex-col justify-between hover:border-emerald-600 transition">
+
+          {/* ======================================================== */}
+          {/* PLAN 2: GROWTH TIER                                      */}
+          {/* ======================================================== */}
+          <div className="bg-slate-50/50 dark:bg-slate-900/60 border-2 border-emerald-600 dark:border-emerald-500 p-8 rounded-3xl flex flex-col justify-between shadow-sm transition-all duration-300 relative">
             <div>
-              <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest block font-bold">
-                {isRw ? 'Ihuriro rito ry\'Abaturage' : isFr ? 'Rassemblement Local' : 'Local Grassroots'}
-              </span>
-              <h3 className="text-base font-extrabold text-gray-900 dark:text-white mt-1">
-                {isRw ? 'Ifatabuguzi ry\'Imberabutsa' : isFr ? 'Formule Starter' : 'Starter Plan'}
-              </h3>
-              <p className="text-2xl font-black text-slate-950 dark:text-white mt-3">
-                {formatAmount(convertToRWF(10, 'USD'), 'USD')}
-                <span className="text-xs font-semibold text-gray-400">
-                  {isRw ? ' / ukwezi' : isFr ? ' / mois' : ' / mo'}
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
+                  {isRw ? 'Ifatabuguzi ry\'Iterambere' : isFr ? 'Plan Growth' : 'Growth Plan'}
+                </h3>
+                <span className="text-[10px] font-mono font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2.5 py-1 rounded-full">
+                  30-Day Free Trial
                 </span>
+              </div>
+              
+              <div className="mt-4 flex items-baseline gap-2">
+                <span className="text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">$10</span>
+                <span className="text-xs font-medium text-slate-500">
+                  {isRw ? '/ ukwezi' : isFr ? '/ mois' : '/ month'}
+                </span>
+              </div>
+              
+              <p className="text-xs text-emerald-700 dark:text-emerald-400 font-mono mt-1 font-medium">
+                {formatAmount(convertToRWF(10, 'USD'), activeCurrency)} • {formatAmount(convertToRWF(10, 'USD'), 'USD')}
               </p>
-              <p className="text-[10px] text-emerald-600 font-semibold font-mono mt-0.5">
-                {formatAmount(convertToRWF(10, 'USD'), activeCurrency)}
+
+              {/* Limits info */}
+              <div className="mt-6 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-300 font-medium py-3 border-y border-slate-200/60 dark:border-slate-800">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>Up to 500 members</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <HardDrive className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>5 GB cloud storage</span>
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-normal">
+                Active local cooperatives, farmer groups, and growing associations.
               </p>
-              <div className="mt-5 pt-4 border-t border-gray-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-gray-800 dark:text-slate-200">
-                  {isRw ? 'Ibikubiyemo:' : isFr ? 'Comprend :' : 'Includes:'}
+
+              {/* Features */}
+              <div className="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800">
+                <p className="text-xs font-semibold text-slate-900 dark:text-white mb-4 flex items-center justify-between">
+                  <span>All Free Features, Plus:</span>
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-mono font-medium">+7 more</span>
                 </p>
-                <ul className="text-[11px] text-slate-500 flex flex-col gap-2 mt-2 font-medium">
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Kugeza ku banyamuryango 100' : isFr ? 'Jusqu\'à 100 membres' : 'Up to 100 members'}
+
+                <ul className="text-xs text-slate-600 dark:text-slate-300 flex flex-col gap-3 font-normal">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Event Attendance & Live Check-in with QR code scanners.</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Igitabo cy\'imari n\'ibikorwa' : isFr ? 'Grand livre local & événements' : 'Local ledger & events'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Excel Attendance & Member Dues Data Export (.xlsx / .csv).</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? '1 GB y\'ubushiko' : isFr ? 'Stockage 1 Go' : '1 GB storage cap'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Meeting Minutes Recorder with assigned action item tracking.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Interactive Voice Notes & Live Polls in community channels.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Double-Entry Financial Accounting Ledger with category breakdown.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Document/Office Suite (Official Letterhead writer & sheets).</span>
                   </li>
                 </ul>
+
+                {expandedPlans.growth && (
+                  <ul className="text-xs text-slate-600 dark:text-slate-300 flex flex-col gap-3 mt-3 pt-3 border-t border-dashed border-slate-200 dark:border-slate-800 animate-in fade-in duration-200 font-normal">
+                    <li className="flex items-start gap-2.5">
+                      <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>Real-Time Security & System Audit Logs for leadership accountability.</span>
+                    </li>
+                  </ul>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => togglePlanExpansion('growth')}
+                  className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 transition cursor-pointer select-none"
+                >
+                  {expandedPlans.growth ? (
+                    <>
+                      <span>Hide additional features</span>
+                      <ChevronUp className="h-3.5 w-3.5" />
+                    </>
+                  ) : (
+                    <>
+                      <span>+1 more feature</span>
+                      <ChevronDown className="h-3.5 w-3.5" />
+                    </>
+                  )}
+                </button>
               </div>
             </div>
-            <a href={PORTAL_LINKS.SIGN_UP} className="mt-8">
-              <Button variant="outline" className="w-full text-xs font-bold py-2">
-                {isRw ? 'Tangiza Plan' : isFr ? 'Lancer Starter' : 'Launch Starter'}
+
+            <a href={PORTAL_LINKS.SIGN_UP} className="mt-10">
+              <Button className="w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold py-3 rounded-xl shadow-sm">
+                Start 30-Day Free Trial
               </Button>
             </a>
           </div>
 
-          {/* 3. Growth */}
-          <div className="bg-white dark:bg-slate-900 border-2 border-[#15803D] p-6 rounded-2xl relative flex flex-col justify-between shadow-sm">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#15803D] text-white px-3 py-0.5 text-[8px] uppercase font-bold tracking-widest rounded-full">
-              {isRw ? 'Icyerekezo Cyiza' : isFr ? 'Hautement Recommandé' : 'Highly Recommended'}
-            </span>
+
+          {/* ======================================================== */}
+          {/* PLAN 3: PRO TIER                                         */}
+          {/* ======================================================== */}
+          <div className="bg-[#0F172A] border border-slate-800 p-8 rounded-3xl flex flex-col justify-between text-white shadow-xl transition-all duration-300 relative">
             <div>
-              <span className="text-[9px] font-bold text-[#15803D] uppercase tracking-widest block font-bold">
-                {isRw ? 'Umuryango Uri Gukura' : isFr ? 'Organisation en Croissance' : 'Scaling Organization'}
-              </span>
-              <h3 className="text-base font-extrabold text-gray-900 dark:text-white mt-1">
-                {isRw ? 'Ifatabuguzi ry\'Iterambere' : isFr ? 'Formule Growth' : 'Growth Plan'}
-              </h3>
-              <p className="text-2xl font-black text-slate-950 dark:text-white mt-3">
-                {formatAmount(convertToRWF(25, 'USD'), 'USD')}
-                <span className="text-xs font-semibold text-gray-400">
-                  {isRw ? ' / ukwezi' : isFr ? ' / mois' : ' / mo'}
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-bold text-white font-display">
+                  {isRw ? 'Ifatabuguzi rya Pro' : isFr ? 'Licence Pro' : 'Pro Plan'}
+                </h3>
+                <span className="text-[10px] font-mono font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full">
+                  Enterprise Velocity
                 </span>
+              </div>
+              
+              <div className="mt-4 flex items-baseline gap-2">
+                <span className="text-4xl font-extrabold text-white tracking-tight">$25</span>
+                <span className="text-xs font-medium text-slate-400">
+                  {isRw ? '/ ukwezi' : isFr ? '/ mois' : '/ month'}
+                </span>
+              </div>
+              
+              <p className="text-xs text-amber-400 font-mono mt-1 font-medium">
+                {formatAmount(convertToRWF(25, 'USD'), activeCurrency)} • {formatAmount(convertToRWF(25, 'USD'), 'USD')}
               </p>
-              <p className="text-[10px] text-[#15803D] font-mono font-bold mt-0.5">
-                {formatAmount(convertToRWF(25, 'USD'), activeCurrency)}
+
+              {/* Limits info */}
+              <div className="mt-6 flex items-center gap-6 text-xs text-slate-300 font-medium py-3 border-y border-slate-800">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-amber-400 shrink-0" />
+                  <span>Unlimited members</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <HardDrive className="h-4 w-4 text-amber-400 shrink-0" />
+                  <span>Unlimited storage</span>
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs text-slate-400 leading-relaxed font-normal">
+                Large unions, agricultural federations, institutions, and high-scale NGOs.
               </p>
-              <div className="mt-5 pt-4 border-t border-gray-100 dark:border-slate-800">
-                <p className="text-xs font-bold text-gray-800 dark:text-slate-200">
-                  {isRw ? 'Ibikubiyemo:' : isFr ? 'Comprend :' : 'Includes:'}
+
+              {/* Features */}
+              <div className="mt-6 pt-6 border-t border-slate-800">
+                <p className="text-xs font-semibold text-slate-200 mb-4 flex items-center justify-between">
+                  <span>All Growth Features, Plus:</span>
+                  <span className="text-[10px] text-amber-400 font-mono font-medium">+7 more</span>
                 </p>
-                <ul className="text-[11px] text-slate-500 flex flex-col gap-2 mt-2 font-medium">
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Kugeza ku banyamuryango 500' : isFr ? 'Jusqu\'à 500 membres' : 'Up to 500 members'}
+
+                <ul className="text-xs text-slate-300 flex flex-col gap-3 font-normal">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>Automated Certificate Generation & Public Verification Portal.</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Ubufasha bwa Guider (Baza Assistant)' : isFr ? 'Assistant Guider (Baza)' : 'Guider (Baza Assistant)'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>Hardware, Equipment & Asset Inventory Tracker with depreciation.</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Ipima ry\'Imisanzu ry\'Umucungamari' : isFr ? 'Indicateur de cotisations comptable' : 'Accountant Dues Health Meter'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>Advanced Financial Ledger Reports & interactive charts.</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? 'Ibiganiro bitsinda birakora' : isFr ? 'Messagerie de groupe active' : 'Group messaging active'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>Mobile Money Live Gateway (Direct MTN & Airtel MoMo push prompts).</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />{' '}
-                    {isRw ? '5 GB y\'ubushiko' : isFr ? 'Stockage 5 Go' : '5 GB storage cap'}
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>Public Cooperative Marketplace & Storefront showcase.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>Full Audit Trail Dossiers (CSV & JSON export, multi-tenant compliance).</span>
                   </li>
                 </ul>
+
+                {expandedPlans.pro && (
+                  <ul className="text-xs text-slate-300 flex flex-col gap-3 mt-3 pt-3 border-t border-dashed border-slate-800 animate-in fade-in duration-200 font-normal">
+                    <li className="flex items-start gap-2.5">
+                      <Check className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+                      <span>End-to-End Encryption & 24/7 Priority Hotline Support.</span>
+                    </li>
+                  </ul>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => togglePlanExpansion('pro')}
+                  className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:text-amber-300 transition cursor-pointer select-none"
+                >
+                  {expandedPlans.pro ? (
+                    <>
+                      <span>Hide additional features</span>
+                      <ChevronUp className="h-3.5 w-3.5" />
+                    </>
+                  ) : (
+                    <>
+                      <span>+1 more feature</span>
+                      <ChevronDown className="h-3.5 w-3.5" />
+                    </>
+                  )}
+                </button>
               </div>
             </div>
-            <a href={PORTAL_LINKS.SIGN_UP} className="mt-8">
-              <Button className="w-full bg-[#15803D] hover:bg-[#14532D] text-xs font-bold py-2">
-                {isRw ? 'Tangiza Iterambere' : isFr ? 'Lancer Growth' : 'Launch Growth'}
+
+            <a href={PORTAL_LINKS.SIGN_UP} className="mt-10">
+              <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-3 rounded-xl shadow-md flex items-center justify-center gap-1.5">
+                <span>Get Pro Plan</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </a>
           </div>
 
-          {/* 4. Pro Plan */}
-          <div className="bg-[#0F172A] border-2 border-amber-500/80 p-6 rounded-2xl flex flex-col justify-between text-white hover:border-amber-400 transition shadow-lg relative">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 px-3 py-0.5 text-[8px] uppercase font-black tracking-widest rounded-full">
-              PRO PLAN
-            </span>
-            <div>
-              <span className="text-[9px] font-bold text-amber-400 uppercase tracking-widest block font-bold">
-                {isRw ? 'Icyerekezo Cyihariye' : isFr ? 'Sécurité Maximale & Pro' : 'Pro Plan & Ultimate Security'}
-              </span>
-              <h3 className="text-base font-extrabold text-slate-50 mt-1">
-                {isRw ? 'Ifatabuguzi rya Pro' : isFr ? 'Licence Pro' : 'Pro Plan License'}
-              </h3>
-              <p className="text-2xl font-black text-white mt-3">
-                {formatAmount(convertToRWF(40, 'USD'), 'USD')}
-                <span className="text-xs font-semibold text-slate-400">
-                  {isRw ? ' / ukwezi' : isFr ? ' / mois' : ' / mo'}
-                </span>
-              </p>
-              <p className="text-[10px] text-amber-400 font-mono font-bold mt-0.5">
-                {formatAmount(convertToRWF(40, 'USD'), activeCurrency)}
-              </p>
-              <div className="mt-5 pt-4 border-t border-slate-800">
-                <p className="text-xs font-bold text-slate-200">
-                  {isRw ? 'Ibikubiyemo byose bya Pro:' : isFr ? 'Avantages Pro :' : 'Pro Plan Features & Perks:'}
-                </p>
-                <ul className="text-[11px] text-slate-300 flex flex-col gap-2 mt-2 font-medium">
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-amber-400 shrink-0" />{' '}
-                    <strong>
-                      {isRw ? 'Ubufasha bwihariye bw\'end-to-end encryption' : 'Highly secure end-to-end encryption'}
-                    </strong>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-amber-400 shrink-0" />{' '}
-                    <strong>
-                      {isRw ? 'Gucunga amakuru yihariye (Auto-personalized data)' : 'Auto-personalized data management'}
-                    </strong>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-amber-400 shrink-0" />{' '}
-                    <strong>{isRw ? 'Itsinda ry\'icyiciro cya Pro' : 'Treated as Pro group tier'}</strong>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-amber-400 shrink-0" />{' '}
-                    <strong>
-                      {isRw ? 'Uburenganzira bwuzuye kuri buri kintu' : 'Unlimited on all features & storage'}
-                    </strong>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5 text-amber-400 shrink-0" />{' '}
-                    <strong>{isRw ? 'Umuhuza w\'umuyobozi bwite' : 'Admin direct contact (Pro Plan)'}</strong>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <a href={PORTAL_LINKS.SIGN_UP} className="mt-8">
-              <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black py-2.5 shadow-md">
-                {isRw ? 'Tangiza Pro Plan' : isFr ? 'Choisir le Plan Pro' : 'Get Pro Plan'}
-              </Button>
-            </a>
-          </div>
         </div>
       </div>
     </section>
