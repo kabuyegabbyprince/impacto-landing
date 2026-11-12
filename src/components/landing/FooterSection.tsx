@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { PORTAL_LINKS } from '../../constants/links';
 
 interface FooterSectionProps {
@@ -144,6 +144,15 @@ export const FooterSection: React.FC<FooterSectionProps> = ({
             >
               <Phone className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
               <span>Tel: {PORTAL_LINKS.CONTACT_SUPPORT_PHONE}</span>
+            </a>
+            <a
+              href={`https://wa.me/250${PORTAL_LINKS.CONTACT_SUPPORT_PHONE.startsWith('0') ? PORTAL_LINKS.CONTACT_SUPPORT_PHONE.slice(1) : PORTAL_LINKS.CONTACT_SUPPORT_PHONE}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-slate-300 hover:text-emerald-400 transition flex items-center gap-1.5"
+            >
+              <MessageCircle className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+              <span>WhatsApp: {PORTAL_LINKS.CONTACT_SUPPORT_PHONE}</span>
             </a>
           </div>
           <p className="text-[10px] text-slate-500 leading-relaxed font-medium">

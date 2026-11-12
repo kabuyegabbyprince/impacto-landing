@@ -166,9 +166,6 @@ export const PricingSection: React.FC = () => {
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
                   {isRw ? 'Ifatabuguzi ry\'Iterambere' : isFr ? 'Plan Growth' : 'Growth Plan'}
                 </h3>
-                <span className="text-[10px] font-mono font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2.5 py-1 rounded-full">
-                  30-Day Free Trial
-                </span>
               </div>
               
               <div className="mt-4 flex items-baseline gap-2">
@@ -263,7 +260,7 @@ export const PricingSection: React.FC = () => {
 
             <a href={PORTAL_LINKS.SIGN_UP} className="mt-10">
               <Button className="w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold py-3 rounded-xl shadow-sm">
-                Start 30-Day Free Trial
+                {isRw ? 'Tangiza Iterambere' : isFr ? 'Lancer Growth' : 'Growth Plan'}
               </Button>
             </a>
           </div>
@@ -278,9 +275,14 @@ export const PricingSection: React.FC = () => {
                 <h3 className="text-xl font-bold text-white font-display">
                   {isRw ? 'Ifatabuguzi rya Pro' : isFr ? 'Licence Pro' : 'Pro Plan'}
                 </h3>
-                <span className="text-[10px] font-mono font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full">
-                  Enterprise Velocity
-                </span>
+                <div className="flex flex-col gap-1.5 items-end">
+                    <span className="text-[10px] font-mono font-semibold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2.5 py-1 rounded-full">
+                      30-Day Free Trial
+                    </span>
+                    <span className="text-[10px] font-mono font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full">
+                      Enterprise Velocity
+                    </span>
+                </div>
               </div>
               
               <div className="mt-4 flex items-baseline gap-2">
@@ -375,7 +377,7 @@ export const PricingSection: React.FC = () => {
 
             <a href={PORTAL_LINKS.SIGN_UP} className="mt-10">
               <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-3 rounded-xl shadow-md flex items-center justify-center gap-1.5">
-                <span>Get Pro Plan</span>
+                <span>{isRw ? 'Tangiza Pro (Iminsi 30 ku Buntu)' : isFr ? 'Lancer l\'essai Pro (30 jours)' : 'Start 30 Days Free Trial'}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </a>
