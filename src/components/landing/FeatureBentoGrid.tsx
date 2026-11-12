@@ -6,7 +6,7 @@ import {
   Users,
   FileSpreadsheet,
   Vote,
-  QrCode,
+  Calendar,
 } from 'lucide-react';
 
 export const FeatureBentoGrid: React.FC = () => {
@@ -209,7 +209,7 @@ export const FeatureBentoGrid: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="p-2.5 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-[#156c45] dark:text-emerald-400 h-10 w-10 flex items-center justify-center shrink-0">
-                  <QrCode className="h-5 w-5" />
+                  <Calendar className="h-5 w-5" />
                 </div>
                 <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 uppercase font-semibold">
                   Module 06
@@ -224,13 +224,13 @@ export const FeatureBentoGrid: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-700/50">
               <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
-                Dynamic QR Gates
+                Task Assignment
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
-                Mobile Check-In
+                Real-time Progress
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
-                Real-Time Ledger
+                Timeline Visuals
               </span>
             </div>
           </div>
