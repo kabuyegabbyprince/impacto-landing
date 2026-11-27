@@ -2,7 +2,7 @@ import { APP_CONFIG } from '../config';
 
 /**
  * External and internal links configuration for Impacto Portal.
- * Sourced directly from centralized APP_CONFIG.
+ * Sourced directly from centralized APP_CONFIG.sdfs
  */
 export const PORTAL_LINKS = {
   SIGN_IN: APP_CONFIG.PORTAL.SIGN_IN_URL,
