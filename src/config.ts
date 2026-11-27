@@ -37,6 +37,7 @@ export const APP_CONFIG = {
   // External Portal & Authentication Links
   PORTAL: {
     BASE_URL: getEnv('VITE_PORTAL_BASE_URL', 'https://impacto.rw/'),
+    PUBLIC_PORTAL_DOMAIN: getEnv('VITE_PUBLIC_PORTAL_DOMAIN', 'app.impacto.rw'),
     SIGN_IN_URL: getEnv('VITE_PORTAL_SIGN_IN_URL', 'https://app.impacto.rw/'),
     SIGN_UP_URL: getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://app.impacto.rw/'),
     DASHBOARD_URL: getEnv('VITE_PORTAL_DASHBOARD_URL', 'https://app.impacto.rw/'),
@@ -44,6 +45,11 @@ export const APP_CONFIG = {
       const base = getEnv('VITE_PORTAL_SIGN_UP_URL', 'https://app.impacto.rw');
       const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
       return orgId ? `${cleanBase}/?org_id=${encodeURIComponent(orgId)}` : `${cleanBase}/`;
+    },
+    GET_PUBLIC_ORG_URL: (slug: string) => {
+      const domain = getEnv('VITE_PUBLIC_PORTAL_DOMAIN', 'app.impacto.rw');
+      const cleanSlug = slug.startsWith('@') ? slug.slice(1) : slug;
+      return `https://${domain}/@${cleanSlug}`;
     },
   },
 

@@ -7,12 +7,12 @@ import {
   Globe,
   MapPin,
   Building2,
-  AlertCircle,
   ArrowLeft,
   Lock,
   Check,
   Maximize2,
   X,
+  ExternalLink,
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useOrgStore } from '../store/orgStore';
@@ -35,6 +35,7 @@ import {
 import { Organization } from '../types';
 import { PORTAL_LINKS } from '../constants/links';
 import { WorkspaceSimulator } from '../components/WorkspaceSimulator';
+import { NotFoundPage } from './NotFoundPage';
 
 export const OrgPublicPage: React.FC = () => {
   const { slug } = useParams();
@@ -96,9 +97,13 @@ export const OrgPublicPage: React.FC = () => {
       document.documentElement.style.setProperty('--org-secondary-l', secondary + '14');
 
       // Dynamic SEO & Social Sharing Tags
-      const pageTitle = `${org.name} — Impacto`;
-      const pageDesc = org.tagline || org.description || `Verified community workspace for ${org.name} on Impacto.`;
-      const canonicalUrl = `https://impacto.rw/@${org.slug}`;
+      const pageTitle = `${org.name} — Impacto Organization Portal`;
+      const pageDesc =
+        org.tagline ||
+        org.description ||
+        `Verified organization workspace for ${org.name} on Impacto (${PORTAL_LINKS.PUBLIC_PORTAL_DOMAIN}).`;
+      const canonicalUrl = PORTAL_LINKS.GET_PUBLIC_ORG_URL(org.slug);
+      const socialImage = org.cover_url || org.logo_url || 'https://impacto.rw/og-image.png';
 
       document.title = pageTitle;
 
@@ -119,16 +124,19 @@ export const OrgPublicPage: React.FC = () => {
       setMeta('og:title', pageTitle, true);
       setMeta('og:description', pageDesc, true);
       setMeta('og:url', canonicalUrl, true);
+      setMeta('og:image', socialImage, true);
       setMeta('twitter:title', pageTitle);
       setMeta('twitter:description', pageDesc);
       setMeta('twitter:url', canonicalUrl);
+      setMeta('twitter:image', socialImage);
 
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) canonical.setAttribute('href', canonicalUrl);
     }
 
     return () => {
-      document.title = 'Impacto — Next-Generation Platform Solutions';
+      document.title =
+        'Impacto — Organization Management System & Cooperative Platform (impacto.rw)';
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) canonical.setAttribute('href', 'https://impacto.rw/');
     };
@@ -156,20 +164,7 @@ export const OrgPublicPage: React.FC = () => {
   }
 
   if (!org) {
-    return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-        <EmptyState
-          icon={<AlertCircle className="h-8 w-8 text-amber-500" />}
-          title="Organization Portal Not Found"
-          message="The slug or workspace you queried is currently unavailable or doesn't exist."
-          action={
-            <Link to="/">
-              <Button>Return Home</Button>
-            </Link>
-          }
-        />
-      </div>
-    );
+    return <NotFoundPage missingSlug={cleanSlug} />;
   }
 
   const isSuperadmin = user?.is_superadmin === true;
@@ -382,9 +377,17 @@ export const OrgPublicPage: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2.5 text-gray-500 dark:text-slate-400">
                       <Globe className="h-4.5 w-4.5 text-[var(--org-primary,#10b981)] shrink-0" />
-                      <span className="text-gray-800 dark:text-slate-200 truncate font-semibold">
-                        {PORTAL_LINKS.DOMAIN_PREFIX}/@{org.slug}
-                      </span>
+                      <a
+                        href={PORTAL_LINKS.GET_PUBLIC_ORG_URL(org.slug)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-800 dark:text-slate-200 hover:text-[var(--org-primary,#15803D)] truncate font-semibold inline-flex items-center gap-1"
+                      >
+                        <span className="truncate">
+                          {PORTAL_LINKS.PUBLIC_PORTAL_DOMAIN}/@{org.slug}
+                        </span>
+                        <ExternalLink className="h-3 w-3 shrink-0 opacity-70" />
+                      </a>
                     </div>
 
                     {org.contact_us && (

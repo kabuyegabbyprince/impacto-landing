@@ -22,6 +22,7 @@ export const CONFIG = {
   // External Portal & Authentication Links
   PORTAL: {
     BASE_URL: 'https://impacto.rw/',
+    PUBLIC_PORTAL_DOMAIN: 'app.impacto.rw',
     SIGN_IN_URL: 'https://app.impacto.rw/',
     SIGN_UP_URL: 'https://app.impacto.rw/',
     DASHBOARD_URL: 'https://app.impacto.rw/',

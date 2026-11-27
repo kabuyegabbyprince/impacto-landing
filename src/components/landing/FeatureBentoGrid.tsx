@@ -54,7 +54,7 @@ export const FeatureBentoGrid: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-700/50">
               <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
-                /@slug Web Domain
+                app.impacto.rw/@slug
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300">
                 Donor Wall

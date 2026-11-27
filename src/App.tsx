@@ -1,10 +1,11 @@
 import React, { useEffect, Component, ErrorInfo, ReactNode } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
 import { OrgPublicPage } from './pages/OrgPublicPage';
 import { DonatePage } from './pages/DonatePage';
 import { EventCheckinPage } from './pages/EventCheckinPage';
 import { CertificateVerifyPage } from './pages/CertificateVerifyPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { PORTAL_LINKS } from './constants/links';
 import { useMobileViewport } from './hooks/useMobileViewport';
 
@@ -55,6 +56,13 @@ class ErrorBoundary extends Component<Props, State> {
 // Redirect helper component for external portal links
 const ExternalRedirect: React.FC<{ url: string }> = ({ url }) => {
   useEffect(() => {
+    let robotsMeta = document.querySelector('meta[name="robots"]');
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta');
+      robotsMeta.setAttribute('name', 'robots');
+      document.head.appendChild(robotsMeta);
+    }
+    robotsMeta.setAttribute('content', 'noindex, nofollow');
     window.location.href = url;
   }, [url]);
 
@@ -100,8 +108,8 @@ export function App() {
           {/* Dynamic QR & Geofenced Attendance Check-In Screen */}
           <Route path="/:slug/checkin" element={<EventCheckinPage />} />
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* 404 Not Found Fallback */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </ErrorBoundary>

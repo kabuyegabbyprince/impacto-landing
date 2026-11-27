@@ -16,9 +16,13 @@ export const LandingPage: React.FC = () => {
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'Impacto — Next-Generation Platform Solutions';
+    document.title = 'Impacto — Organization Management System & Cooperative Platform (impacto.rw)';
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute('href', 'https://impacto.rw/');
+    const robots = document.querySelector('meta[name="robots"]');
+    if (robots) {
+      robots.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    }
   }, []);
 
   return (

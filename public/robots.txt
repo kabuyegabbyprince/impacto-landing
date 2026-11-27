@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /login
+Disallow: /signin
+Disallow: /register
+Disallow: /signup
+Disallow: /dashboard
 
 Sitemap: https://impacto.rw/sitemap.xml
